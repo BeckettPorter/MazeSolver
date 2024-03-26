@@ -5,6 +5,7 @@
  */
 
 import java.util.ArrayList;
+import java.util.Stack;
 
 public class MazeSolver {
     private Maze maze;
@@ -28,9 +29,30 @@ public class MazeSolver {
      */
     public ArrayList<MazeCell> getSolution() {
         // TODO: Get the solution from the maze
+
+        MazeCell currentCell = maze.getEndCell();
+        ArrayList<MazeCell> path = new ArrayList<>();
+
+        while (currentCell != maze.getStartCell())
+        {
+            currentCell = currentCell.getParent();
+            path.add(currentCell);
+        }
+
+        reverseArray(path);
+
         // Should be from start to end cells
         return null;
     }
+
+    private ArrayList<MazeCell> reverseArray(ArrayList<MazeCell> ar)
+    {
+        Stack<MazeCell> s = new Stack<>();
+
+        for (int i = 0; i < )
+    }
+
+
 
     /**
      * Performs a Depth-First Search to solve the Maze
