@@ -32,6 +32,7 @@ public class MazeSolver {
 
         MazeCell currentCell = maze.getEndCell();
         ArrayList<MazeCell> path = new ArrayList<>();
+        path.add(currentCell);
 
         while (currentCell != maze.getStartCell())
         {
@@ -39,17 +40,23 @@ public class MazeSolver {
             path.add(currentCell);
         }
 
-        reverseArray(path);
-
         // Should be from start to end cells
-        return null;
+        return reverseArray(path);
     }
 
     private ArrayList<MazeCell> reverseArray(ArrayList<MazeCell> ar)
     {
         Stack<MazeCell> s = new Stack<>();
+        ArrayList<MazeCell> newAr = new ArrayList<>();
 
-        for (int i = 0; i < )
+        for (MazeCell mazeCell : ar) {
+            s.push(mazeCell);
+        }
+        for (int i = 0; i < ar.size(); i++)
+        {
+            newAr.add(i, s.pop());
+        }
+        return newAr;
     }
 
 
@@ -60,6 +67,50 @@ public class MazeSolver {
      */
     public ArrayList<MazeCell> solveMazeDFS() {
         // TODO: Use DFS to solve the maze
+
+        Stack<MazeCell> s = new Stack<>();
+        MazeCell currentCell = maze.getStartCell();
+
+
+        while (currentCell != maze.getEndCell())
+        {
+            if (maze.isValidCell(currentCell.getRow() - 1, currentCell.getCol()))
+            {
+                MazeCell nextCell = maze.getCell(currentCell.getRow() - 1, currentCell.getCol());
+                nextCell.setParent(currentCell);
+                currentCell = nextCell;
+
+                s.push(currentCell);
+            }
+
+            if (maze.isValidCell(currentCell.getRow(), currentCell.getCol() + 1))
+            {
+                MazeCell nextCell = maze.getCell(currentCell.getRow(), currentCell.getCol() + 1);
+                nextCell.setParent(currentCell);
+                currentCell = nextCell;
+
+                s.push(currentCell);
+            }
+
+            if (maze.isValidCell(currentCell.getRow() + 1, currentCell.getCol()))
+            {
+                MazeCell nextCell = maze.getCell(currentCell.getRow() + 1, currentCell.getCol());
+                nextCell.setParent(currentCell);
+                currentCell = nextCell;
+
+                s.push(currentCell);
+            }
+
+            if (maze.isValidCell(currentCell.getRow(), currentCell.getCol() - 1))
+            {
+                MazeCell nextCell = maze.getCell(currentCell.getRow(), currentCell.getCol() - 1);
+                nextCell.setParent(currentCell);
+                currentCell = nextCell;
+
+                s.push(currentCell);
+            }
+        }
+
         // Explore the cells in the order: NORTH, EAST, SOUTH, WEST
         return null;
     }
