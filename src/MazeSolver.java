@@ -65,58 +65,68 @@ public class MazeSolver {
      * Performs a Depth-First Search to solve the Maze
      * @return An ArrayList of MazeCells in order from the start to end cell
      */
-    public ArrayList<MazeCell> solveMazeDFS() {
-        // TODO: Use DFS to solve the maze
+    public ArrayList<MazeCell> solveMazeDFS()
+    {
+        Stack<MazeCell> stack = new Stack<>();
+        maze.getStartCell().setExplored(true);
 
-        ArrayList<MazeCell> ar = new ArrayList<>();
-        MazeCell currentCell = maze.getStartCell();
+        stack.push(maze.getStartCell());
 
-
-        while (currentCell != maze.getEndCell())
+        while (!stack.isEmpty())
         {
+            MazeCell currentCell = stack.peek();
+
+            if (currentCell == maze.getEndCell())
+            {
+                return getSolution();
+            }
+
             if (maze.isValidCell(currentCell.getRow() - 1, currentCell.getCol()))
             {
                 MazeCell nextCell = maze.getCell(currentCell.getRow() - 1, currentCell.getCol());
-                nextCell.setParent(currentCell);
-                currentCell = nextCell;
-
-                ar.add(currentCell);
+                if (!nextCell.isExplored()) {
+                    nextCell.setExplored(true);
+                    nextCell.setParent(currentCell);
+                    stack.push(nextCell);
+                }
             }
-
-            if (maze.isValidCell(currentCell.getRow(), currentCell.getCol() + 1))
+            else if (maze.isValidCell(currentCell.getRow(), currentCell.getCol() + 1))
             {
                 MazeCell nextCell = maze.getCell(currentCell.getRow(), currentCell.getCol() + 1);
-                nextCell.setParent(currentCell);
-                currentCell = nextCell;
-
-                ar.add(currentCell);
+                if (!nextCell.isExplored())
+                {
+                    nextCell.setExplored(true);
+                    nextCell.setParent(currentCell);
+                    stack.push(nextCell);
+                }
             }
-
-            if (maze.isValidCell(currentCell.getRow() + 1, currentCell.getCol()))
+            else if (maze.isValidCell(currentCell.getRow() + 1, currentCell.getCol()))
             {
                 MazeCell nextCell = maze.getCell(currentCell.getRow() + 1, currentCell.getCol());
-                nextCell.setParent(currentCell);
-                currentCell = nextCell;
-
-                ar.add(currentCell);
+                if (!nextCell.isExplored())
+                {
+                    nextCell.setExplored(true);
+                    nextCell.setParent(currentCell);
+                    stack.push(nextCell);
+                }
             }
-
-            if (maze.isValidCell(currentCell.getRow(), currentCell.getCol() - 1))
+            else if (maze.isValidCell(currentCell.getRow(), currentCell.getCol() - 1))
             {
                 MazeCell nextCell = maze.getCell(currentCell.getRow(), currentCell.getCol() - 1);
-                nextCell.setParent(currentCell);
-                currentCell = nextCell;
-
-                ar.add(currentCell);
+                if (!nextCell.isExplored())
+                {
+                    nextCell.setExplored(true);
+                    nextCell.setParent(currentCell);
+                    stack.push(nextCell);
+                }
+            }
+            else
+            {
+                stack.pop();
             }
         }
 
-        // Explore the cells in the order: NORTH, EAST, SOUTH, WEST
-        for (MazeCell e : ar)
-        {
-            System.out.println(e.getParent());
-        }
-        return ar;
+        return null;
     }
 
     /**
