@@ -68,7 +68,7 @@ public class MazeSolver {
     public ArrayList<MazeCell> solveMazeDFS() {
         // TODO: Use DFS to solve the maze
 
-        Stack<MazeCell> s = new Stack<>();
+        ArrayList<MazeCell> ar = new ArrayList<>();
         MazeCell currentCell = maze.getStartCell();
 
 
@@ -80,7 +80,7 @@ public class MazeSolver {
                 nextCell.setParent(currentCell);
                 currentCell = nextCell;
 
-                s.push(currentCell);
+                ar.add(currentCell);
             }
 
             if (maze.isValidCell(currentCell.getRow(), currentCell.getCol() + 1))
@@ -89,7 +89,7 @@ public class MazeSolver {
                 nextCell.setParent(currentCell);
                 currentCell = nextCell;
 
-                s.push(currentCell);
+                ar.add(currentCell);
             }
 
             if (maze.isValidCell(currentCell.getRow() + 1, currentCell.getCol()))
@@ -98,7 +98,7 @@ public class MazeSolver {
                 nextCell.setParent(currentCell);
                 currentCell = nextCell;
 
-                s.push(currentCell);
+                ar.add(currentCell);
             }
 
             if (maze.isValidCell(currentCell.getRow(), currentCell.getCol() - 1))
@@ -107,12 +107,16 @@ public class MazeSolver {
                 nextCell.setParent(currentCell);
                 currentCell = nextCell;
 
-                s.push(currentCell);
+                ar.add(currentCell);
             }
         }
 
         // Explore the cells in the order: NORTH, EAST, SOUTH, WEST
-        return null;
+        for (MazeCell e : ar)
+        {
+            System.out.println(e.getParent());
+        }
+        return ar;
     }
 
     /**
