@@ -5,6 +5,8 @@
  */
 
 import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.Queue;
 import java.util.Stack;
 
 public class MazeSolver {
@@ -136,6 +138,61 @@ public class MazeSolver {
     public ArrayList<MazeCell> solveMazeBFS() {
         // TODO: Use BFS to solve the maze
         // Explore the cells in the order: NORTH, EAST, SOUTH, WEST
+        Queue<MazeCell> queue = new LinkedList<>();
+        maze.getStartCell().setExplored(true);
+
+        queue.add(maze.getStartCell());
+
+        while (!queue.isEmpty())
+        {
+            MazeCell currentCell = queue.remove();
+
+            if (currentCell == maze.getEndCell())
+            {
+                return getSolution();
+            }
+
+            if (maze.isValidCell(currentCell.getRow() - 1, currentCell.getCol()))
+            {
+                MazeCell nextCell = maze.getCell(currentCell.getRow() - 1, currentCell.getCol());
+                if (!nextCell.isExplored()) {
+                    nextCell.setExplored(true);
+                    nextCell.setParent(currentCell);
+                    queue.add(nextCell);
+                }
+            }
+            if (maze.isValidCell(currentCell.getRow(), currentCell.getCol() + 1))
+            {
+                MazeCell nextCell = maze.getCell(currentCell.getRow(), currentCell.getCol() + 1);
+                if (!nextCell.isExplored())
+                {
+                    nextCell.setExplored(true);
+                    nextCell.setParent(currentCell);
+                    queue.add(nextCell);
+                }
+            }
+            if (maze.isValidCell(currentCell.getRow() + 1, currentCell.getCol()))
+            {
+                MazeCell nextCell = maze.getCell(currentCell.getRow() + 1, currentCell.getCol());
+                if (!nextCell.isExplored())
+                {
+                    nextCell.setExplored(true);
+                    nextCell.setParent(currentCell);
+                    queue.add(nextCell);
+                }
+            }
+            if (maze.isValidCell(currentCell.getRow(), currentCell.getCol() - 1))
+            {
+                MazeCell nextCell = maze.getCell(currentCell.getRow(), currentCell.getCol() - 1);
+                if (!nextCell.isExplored())
+                {
+                    nextCell.setExplored(true);
+                    nextCell.setParent(currentCell);
+                    queue.add(nextCell);
+                }
+            }
+        }
+
         return null;
     }
 
