@@ -69,11 +69,15 @@ public class MazeSolver {
      */
     public ArrayList<MazeCell> solveMazeDFS()
     {
+        // Make a stack to add the cells to
         Stack<MazeCell> stack = new Stack<>();
-        maze.getStartCell().setExplored(true);
 
+        // Set the first cell to explored
+        maze.getStartCell().setExplored(true);
+        // Add the first cell to the stack
         stack.push(maze.getStartCell());
 
+        // While loop that runs while the stack isn't empty
         while (!stack.isEmpty())
         {
             MazeCell currentCell = stack.peek();
@@ -82,7 +86,7 @@ public class MazeSolver {
             {
                 return getSolution();
             }
-
+            // Check each direction (north, east, south, then west) in order and find if it can search there.
             if (maze.isValidCell(currentCell.getRow() - 1, currentCell.getCol()))
             {
                 MazeCell nextCell = maze.getCell(currentCell.getRow() - 1, currentCell.getCol());
@@ -139,10 +143,13 @@ public class MazeSolver {
         // TODO: Use BFS to solve the maze
         // Explore the cells in the order: NORTH, EAST, SOUTH, WEST
         Queue<MazeCell> queue = new LinkedList<>();
-        maze.getStartCell().setExplored(true);
 
+        // Set the first cell to explored
+        maze.getStartCell().setExplored(true);
+        // Add the first cell to the queue
         queue.add(maze.getStartCell());
 
+        // While loop that runs while the queue isn't empty
         while (!queue.isEmpty())
         {
             MazeCell currentCell = queue.remove();
@@ -152,6 +159,7 @@ public class MazeSolver {
                 return getSolution();
             }
 
+            // Check each direction (north, east, south, then west) in order and find if it can search there.
             if (maze.isValidCell(currentCell.getRow() - 1, currentCell.getCol()))
             {
                 MazeCell nextCell = maze.getCell(currentCell.getRow() - 1, currentCell.getCol());
