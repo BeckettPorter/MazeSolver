@@ -1,7 +1,7 @@
 /**
  * Solves the given maze using DFS or BFS
- * @author Ms. Namasivayam
- * @version 03/10/2023
+ * @author Ms. Namasivayam, Completed By Beckett Porter
+ * @version 04/1/2024
  */
 
 import java.util.ArrayList;
@@ -29,8 +29,9 @@ public class MazeSolver {
      * the parents to determine the solution
      * @return An arraylist of MazeCells to visit in order
      */
+
+    // Returns the solution to the maze in the form of an arrayList of mazeCells
     public ArrayList<MazeCell> getSolution() {
-        // TODO: Get the solution from the maze
 
         MazeCell currentCell = maze.getEndCell();
         ArrayList<MazeCell> path = new ArrayList<>();
@@ -46,6 +47,7 @@ public class MazeSolver {
         return reverseArray(path);
     }
 
+    // Helper method that takes in an arrayList and returns it in a reversed order
     private ArrayList<MazeCell> reverseArray(ArrayList<MazeCell> ar)
     {
         Stack<MazeCell> s = new Stack<>();
@@ -80,7 +82,7 @@ public class MazeSolver {
         // While loop that runs while the stack isn't empty
         while (!stack.isEmpty())
         {
-            MazeCell currentCell = stack.peek();
+            MazeCell currentCell = stack.pop();
 
             if (currentCell == maze.getEndCell())
             {
@@ -90,45 +92,30 @@ public class MazeSolver {
             if (maze.isValidCell(currentCell.getRow() - 1, currentCell.getCol()))
             {
                 MazeCell nextCell = maze.getCell(currentCell.getRow() - 1, currentCell.getCol());
-                if (!nextCell.isExplored()) {
-                    nextCell.setExplored(true);
-                    nextCell.setParent(currentCell);
-                    stack.push(nextCell);
-                }
+                nextCell.setExplored(true);
+                nextCell.setParent(currentCell);
+                stack.push(nextCell);
             }
-            else if (maze.isValidCell(currentCell.getRow(), currentCell.getCol() + 1))
+            if (maze.isValidCell(currentCell.getRow(), currentCell.getCol() + 1))
             {
                 MazeCell nextCell = maze.getCell(currentCell.getRow(), currentCell.getCol() + 1);
-                if (!nextCell.isExplored())
-                {
-                    nextCell.setExplored(true);
-                    nextCell.setParent(currentCell);
-                    stack.push(nextCell);
-                }
+                nextCell.setExplored(true);
+                nextCell.setParent(currentCell);
+                stack.push(nextCell);
             }
-            else if (maze.isValidCell(currentCell.getRow() + 1, currentCell.getCol()))
+            if (maze.isValidCell(currentCell.getRow() + 1, currentCell.getCol()))
             {
                 MazeCell nextCell = maze.getCell(currentCell.getRow() + 1, currentCell.getCol());
-                if (!nextCell.isExplored())
-                {
-                    nextCell.setExplored(true);
-                    nextCell.setParent(currentCell);
-                    stack.push(nextCell);
-                }
+                nextCell.setExplored(true);
+                nextCell.setParent(currentCell);
+                stack.push(nextCell);
             }
-            else if (maze.isValidCell(currentCell.getRow(), currentCell.getCol() - 1))
+            if (maze.isValidCell(currentCell.getRow(), currentCell.getCol() - 1))
             {
                 MazeCell nextCell = maze.getCell(currentCell.getRow(), currentCell.getCol() - 1);
-                if (!nextCell.isExplored())
-                {
-                    nextCell.setExplored(true);
-                    nextCell.setParent(currentCell);
-                    stack.push(nextCell);
-                }
-            }
-            else
-            {
-                stack.pop();
+                nextCell.setExplored(true);
+                nextCell.setParent(currentCell);
+                stack.push(nextCell);
             }
         }
 
@@ -140,7 +127,6 @@ public class MazeSolver {
      * @return An ArrayList of MazeCells in order from the start to end cell
      */
     public ArrayList<MazeCell> solveMazeBFS() {
-        // TODO: Use BFS to solve the maze
         // Explore the cells in the order: NORTH, EAST, SOUTH, WEST
         Queue<MazeCell> queue = new LinkedList<>();
 
@@ -163,41 +149,30 @@ public class MazeSolver {
             if (maze.isValidCell(currentCell.getRow() - 1, currentCell.getCol()))
             {
                 MazeCell nextCell = maze.getCell(currentCell.getRow() - 1, currentCell.getCol());
-                if (!nextCell.isExplored()) {
-                    nextCell.setExplored(true);
-                    nextCell.setParent(currentCell);
-                    queue.add(nextCell);
-                }
+                nextCell.setExplored(true);
+                nextCell.setParent(currentCell);
+                queue.add(nextCell);
             }
             if (maze.isValidCell(currentCell.getRow(), currentCell.getCol() + 1))
             {
                 MazeCell nextCell = maze.getCell(currentCell.getRow(), currentCell.getCol() + 1);
-                if (!nextCell.isExplored())
-                {
-                    nextCell.setExplored(true);
-                    nextCell.setParent(currentCell);
-                    queue.add(nextCell);
-                }
+                nextCell.setExplored(true);
+                nextCell.setParent(currentCell);
+                queue.add(nextCell);
             }
             if (maze.isValidCell(currentCell.getRow() + 1, currentCell.getCol()))
             {
                 MazeCell nextCell = maze.getCell(currentCell.getRow() + 1, currentCell.getCol());
-                if (!nextCell.isExplored())
-                {
-                    nextCell.setExplored(true);
-                    nextCell.setParent(currentCell);
-                    queue.add(nextCell);
-                }
+                nextCell.setExplored(true);
+                nextCell.setParent(currentCell);
+                queue.add(nextCell);
             }
             if (maze.isValidCell(currentCell.getRow(), currentCell.getCol() - 1))
             {
                 MazeCell nextCell = maze.getCell(currentCell.getRow(), currentCell.getCol() - 1);
-                if (!nextCell.isExplored())
-                {
-                    nextCell.setExplored(true);
-                    nextCell.setParent(currentCell);
-                    queue.add(nextCell);
-                }
+                nextCell.setExplored(true);
+                nextCell.setParent(currentCell);
+                queue.add(nextCell);
             }
         }
 
